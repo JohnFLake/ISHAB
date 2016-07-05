@@ -1,28 +1,38 @@
 #include "Player.h"
 
-
 Player::Player(){
-	currentFrame = 0;
-	frameHeight = 135;
-	frameWidth = 120;
-	distBetweenFrames = 200;
-	frameStartX = 50;
+	frameHeight = FRAME_HEIGHT;
+	frameOffset = 0;
+	frameWidth = FRAME_WIDTH;
+	distBetweenFrames = DIST_BETWEEN_FRAMES;
+	frameStartX = FRAME_START_X;
+	yVel = 0;
+	xVel = 0;
+	xLoc = 0;
+	yLoc = 0;
+	midX = 0;
+	xAcc = 0;
+	yAcc = GRAVITY;
 }
 
 void Player::setup(){
-	SDL_Texture* ish = graphics->getTextureFromPath("Assets/Sprites/ish.png");
+	SDL_Texture* ishmael = graphics->getTextureFromPath("Assets/Sprites/ish.png");
 	setState(STANDING);
-	setFlipped(0);
-	setGrounded(1);
-	setTexture(ish);
+	setFlipped(NO);
+	setGrounded(YES);
+	setTexture(ishmael);
+
+	//Location will be set based on the area the player is in. 
 	setLocation(30,30);
-	setWidth(120);
-	setHeight(131);
+	setWidth(PLAYER_WIDTH);
+	setHeight(PLAYER_HEIGHT);
 }
 
 void Player::update(){
 	xVel += xAcc;
 	yVel += yAcc;
+	if(yVel >= TERMINAL_VEL)
+		yVel = TERMINAL_VEL;
 
 	if(isGrounded()){
 		yVel = 0;
@@ -30,57 +40,36 @@ void Player::update(){
 	xLoc += xVel;
 	yLoc += yVel;
 
-	//Update the camera: 
-	SDL_Rect *cam;  
-	cam = graphics-> getCamera();
-	if(xLoc-cam->x > WINDOW_WIDTH - 200){
-		cam->x += 5;
-	}else if (xLoc-cam->x < 200){
-		cam->x -= 5;
-		if(cam->x <= 0)
-			cam->x = 0;
-	}
+	midX = xLoc + width/2;
 
-	if(yLoc-cam->y > WINDOW_HEIGHT - 100){
-		cam->y += 5;
-	}else if (yLoc-cam->y < 100){
-		cam->y -= 5;
-		if(cam->y <= 0)
-			cam->y = 0;
-	}
 }
 
 
 void Player::jump(){
-	state = 432;
-	yVel = -13;
+	state = JUMPING;
+	yVel = JUMP_VEL;
 }
 
 void Player::setState(int s){
-	state = s;
+	Sprite::setState(s);
 	switch(s){
 		case STANDING: 
-			distBetweenFrames = 200;
-			numFrames = 10;
-			frameWidth = 120;
-			frameStartY = 65;
-			frameStartX = 40;
+			numFrames = STAND_NUM_FRAMES;
+			frameStartY = STAND_START_Y;
 			break;
 		case RUNNING: 
-			numFrames = 12;
-			distBetweenFrames = 200;
-			frameWidth = 120;
-			frameStartY = 264;
-			frameStartX = 40;
+			numFrames = RUN_NUM_FRAMES;
+			frameStartY = RUN_START_Y;
 			break;
 	}
-
 }
 
-void Player::updateFrame(){
-	frameOffset++;
 
-	if(frameOffset %3 == 0){
+
+void Player::updateFrame(){
+	//Offset used to delay animation
+	frameOffset++;
+	if(frameOffset %FRAME_OFFSET == 0){
 		currentFrame++; 
 		if(currentFrame >= numFrames)
 			currentFrame = 0;
@@ -89,5 +78,3 @@ void Player::updateFrame(){
 	if(frameOffset>10)
 		frameOffset = 0;
 }
-
-

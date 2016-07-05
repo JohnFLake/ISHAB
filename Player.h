@@ -16,21 +16,10 @@ class Player: public Sprite{
 		void update();
 		void setup();
 		void setState(int s);
-		void setGrounded(int g){grounded = g;}
-		int isGrounded(){return grounded;}
-		void setFlipped(int f){flipped = f;}
-		int isFlipped(){return flipped;}
-		
+		int getMidX(){return midX;}
+						
 	private: 
-		int flipped; 
-		int grounded; 
-		int frameHeight; 
-		int frameWidth; 
-		int distBetweenFrames; 
-		int frameStartX; 
-		int frameStartY;
-
-		
+		int midX; 
 		
 
 };

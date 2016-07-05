@@ -2,12 +2,9 @@
 	John F. Lake, Jr. 
 	This is a class for management of the state of ISHAB.
 */
-
 #include <string>
-
 #ifndef __STATE_MANAGER__
 #define __STATE_MANAGER__
-
 class StateManager{
 	public: 
 		void loadGame(std::string saveFile);
@@ -23,5 +20,4 @@ class StateManager{
 		int cameraX;
 		int cameraY;
 };
-
 #endif

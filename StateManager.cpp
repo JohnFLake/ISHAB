@@ -4,7 +4,10 @@
 #include <cstring>
 #include <sstream>
 
-std::string myText("some-text-to-tokenize");
+
+/*
+	Save the game to a text file.
+*/
 void StateManager::saveGame(std::string saveFile){
 	std::ofstream sf; 
 	sf.open(saveFile);
@@ -13,6 +16,9 @@ void StateManager::saveGame(std::string saveFile){
 }
 
 
+/*
+	Load the game from a text file.
+*/
 void StateManager::loadGame(std::string saveFile){
 	std::ifstream sf; 
 	std::string line;
@@ -30,7 +36,6 @@ void StateManager::loadGame(std::string saveFile){
 			std::istringstream iss(line);
 			std::getline(iss, token1, ':');
 			std::getline(iss, token2, ':');
-				
 
 			//Go through each possible field and update the game accordingly.
 			if(token1.compare("clock")==0){

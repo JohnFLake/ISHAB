@@ -15,6 +15,8 @@ class Sprite: public Entity{
 		void setYVel(int y){yVel = y;}
 		void setXAcc(int x){xAcc = x;}
 		void setYAcc(int y){yAcc = y;}
+		void setFlipped(int f){flipped = f;}
+		void setGrounded(int g){grounded = g;}
 		void update();
 
 		int getState(){return state;}
@@ -24,16 +26,25 @@ class Sprite: public Entity{
 		int getYVel(){return yVel;}
 		int getXAcc(){return xAcc;}
 		int getYAcc(){return yAcc;}
+		int isFlipped(){return flipped;}
+		int isGrounded(){return grounded;}
+
 	protected: 
-		int numFrames; 
-		int frameOffset;
+		int distBetweenFrames; 
 		int currentFrame;
-		int frameHeight;
+		int numFrames; 
+		int frameStartX; 
+		int frameStartY;
+		int frameOffset;
+		int frameHeight; 
 		int frameWidth;
-		int state;
 		int xVel;
 		int yVel;
 		int xAcc;
 		int yAcc;
+		int state;
+		int grounded; 
+		int flipped; 
+
 };
 #endif

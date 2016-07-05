@@ -11,6 +11,8 @@
 #include <iostream>
 int main(){
 	GameEngine ge; 
+//	ge.run();
 	ge.run();
+//	ge.close();
 	return 0;
 }
